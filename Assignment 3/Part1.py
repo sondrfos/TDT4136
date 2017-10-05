@@ -40,7 +40,7 @@ class Board:
 
 		file = open(filename, 'r')			#open boardfile
 		for line in file:					#iterate trought file
-			l = list(line)					#make string into list
+			l = list(line[:-1])				#make string into list & removing the last \n
 			if self.x == 0: self.x = len(l)	#if x is not set it is set to the length of input list
 			if 'A' in l:					#if there is an element in input list with value A save as startTile
 				self.startTile =Tile(l.index('A'),(len(self.board)), None)
@@ -131,13 +131,13 @@ class Board:
 				if (y,x) in path:
 					c = (107,97,255)
 					idraw.rectangle([(y*70+20,x*70+20),(y*70+50,x*70+50)], fill=c, outline=(0,0,0))
-		img.save("board-1-4.png")										#save board	
+		img.save("pictures/board-1-4.png")										#save board	
 
 
 
 def main(): 
 	#make board, run aStar and save graphics
-	a = Board("board-1-4.txt")
+	a = Board("boards/board-1-4.txt")
 	current, success = a.aStar()
 	if success:
 		path = a.reconstructPath(current)
