@@ -93,6 +93,7 @@ class Board:
 
 			#if inside board get cost associated with tile and append to successor list
 			if 0 <= x_ < self.x and 0 <= y_ < self.y: 
+				if self.board[y_][x_] == '#': continue 
 				cost = self.getCost(self.board[y_][x_])
 				succ.append(Tile(x_, y_, current, cost))
 		return succ
@@ -111,7 +112,7 @@ class Board:
 		if symbol == "A":
 			return (255,0,0)
 		elif symbol == "B":
-			return (0,0,0)
+			return (64,128,64)
 		elif symbol == "w":
 			return (0,0,255)
 		elif symbol == "m":
@@ -122,6 +123,8 @@ class Board:
 			return (51,255,51)
 		elif symbol == "r":
 			return (204,102,0)
+		elif symbol == "#":
+			return (0,0,0)
 
 	def getCost(self, symbol):
 		#returns cost based on input symbol
@@ -135,8 +138,8 @@ class Board:
 			return 5
 		elif symbol == "r":
 			return 1
-		elif symbol == "B":
-			return 0
+		elif symbol == "B" or symbol == "A" or symbol =="." or symbol == "#":
+			return 1
 
 	def printBoardGraphics(self, path, opened, closed):
 		img = Image.new("RGB", (70*self.x, 70*self.y), "white")			#draw background image with 70*x by 70*y resolution
@@ -160,12 +163,12 @@ class Board:
 					font = ImageFont.truetype("arial.ttf", size=100)
 					idraw.text([y*70+15,x*70+5],"*", c, font)
 
-		img.save("pictures/board-2-4djikstra.png")										#save board	
+		img.save("pictures/djikstra board-1-1.png")										#save board	
 
 
 def main(): 
 	#make board, run bfs and save graphics
-	a = Board("boards/board-2-4.txt")
+	a = Board("boards/board-1-1.txt")
 	current, success, opened, closed = a.djikstra()
 	o, c = [], []
 	if success:
