@@ -116,8 +116,6 @@ class ReflexAgent(Agent):
                     dist=manhattanDistance((x,y),newPos)
                     if(dist==0): foodScore+=300
                     else: foodScore+=100.0/(dist*dist)
- m
-        print ghostScore, capsuleScore, foodScore
         return (ghostScore+capsuleScore+foodScore)
 
 
