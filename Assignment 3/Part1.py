@@ -2,7 +2,6 @@ from PIL import Image, ImageDraw
 from heapq import heappush, heappop
 
 
-
 class Tile:		#tile class for every tile generated
 	xPos = 0
 	yPos = 0
@@ -32,6 +31,7 @@ class Tile:		#tile class for every tile generated
 		return abs(self.xPos - end.xPos) + abs(self.yPos - end.yPos)
 
 
+
 class Board:
 	x, y = 0,0								#initialize variables to save board size
 	board = []								#initialize board for saving input file
@@ -48,9 +48,6 @@ class Board:
 				self.endTile = Tile(l.index('B'),(len(self.board)), None)
 			self.board.append(l)			#append the input list to board when finished investigating it
 			self.y+=1						#increment y for every input list
-
-
-
 
 	def aStar(self):
 		c, o = [], []						#initialize closed and open lists
@@ -80,7 +77,6 @@ class Board:
 					if s not in o:			#if not opened push into heap at right place
 						heappush(o, s)
 		return None, False					#if we didn't reach endTile return false
-
 
 
 	def genSucc(self, current):
@@ -114,12 +110,11 @@ class Board:
 			return (0, 255, 0)
 		elif symbol == ".":
 			return (255, 255, 255)
-		else:
+		elif symbol == "#":
 			return (0, 0, 0)
 
-
 	def printBoardGraphics(self, path):
-		img = Image.new("RGB", (70*self.x, 70*self.y), "white")			#draw background image with 70*x by 70*y resolution
+		img = Image.new("RGB", (70*self.x+1, 70*self.y+1), "white")			#draw background image with 70*x by 70*y resolution
 		idraw = ImageDraw.Draw(img)										#make possible to draw
 		for x in range(0, len(self.board)):								#iterate trough all elements in board
 			for y in range(0, len(self.board[0])):						
@@ -131,15 +126,15 @@ class Board:
 				if (y,x) in path:
 					c = (107,97,255)
 					idraw.rectangle([(y*70+20,x*70+20),(y*70+50,x*70+50)], fill=c, outline=(0,0,0))
-		img.save("pictures/board-1-4.png")										#save board	
-
+		img.save("pictures/board-1-3.png")										#save board	
 
 
 def main(): 
 	#make board, run aStar and save graphics
-	a = Board("boards/board-1-4.txt")
+	a = Board("boards/board-1-3.txt")
 	current, success = a.aStar()
 	if success:
+		print "success"
 		path = a.reconstructPath(current)
 		print path
 		a.printBoardGraphics(path)

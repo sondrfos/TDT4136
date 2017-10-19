@@ -2,7 +2,6 @@ from PIL import Image, ImageDraw
 from heapq import heappush, heappop
 
 
-
 class Tile:		#tile class for every tile generated
 	xPos = 0
 	yPos = 0
@@ -39,7 +38,6 @@ class Board:
 	board = []								#initialize board for saving input file
 
 	def __init__(self, filename):
-
 		file = open(filename, 'r')			#open boardfile
 		for line in file:					#iterate trought file
 			l = list(line[:-1])				#make string into list & removing the last \n
@@ -50,9 +48,6 @@ class Board:
 				self.endTile = Tile(l.index('B'),(len(self.board)), None, 0)
 			self.board.append(l)			#append the input list to board when finished investigating it
 			self.y+=1						#increment y for every input list
-
-
-
 
 	def aStar(self):
 		c, o = [], []						#initialize closed and open lists
@@ -83,8 +78,6 @@ class Board:
 						heappush(o, s)
 		return None, False					#if we didn't reach endTile return false
 
-
-
 	def genSucc(self, current):
 		succ = []							#initialize successor list
 		x, y = current.xPos, current.yPos	#get current coordinates
@@ -110,37 +103,23 @@ class Board:
 
 	def getColor(self, symbol):
 		#returns color value based on which symbol
-		if symbol == "A":
-			return (255,0,0)
-		elif symbol == "B":
-			return (0,0,0)
-		elif symbol == "w":
-			return (0,0,255)
-		elif symbol == "m":
-			return (128,128,128)
-		elif symbol == "f":
-			return (0,102,51)
-		elif symbol == "g":
-			return (51,255,51)
-		elif symbol == "r":
-			return (204,102,0)
+		if symbol == "A": return (255,0,0)
+		elif symbol == "B": return (0,0,0)
+		elif symbol == "w": return (0,0,255)
+		elif symbol == "m": return (128,128,128)
+		elif symbol == "f": return (0,102,51)
+		elif symbol == "g": return (51,255,51)
+		elif symbol == "r": return (204,102,0)
+		elif symbol == "#": return (0,0,0)
 
 	def getCost(self, symbol):
 		#returns cost based on input symbol
-		if symbol == "w":
-			return 100
-		elif symbol == "m":
-			return 50
-		elif symbol == "f":
-			return 10
-		elif symbol == "g":
-			return 5
-		elif symbol == "r":
-			return 1
-		elif symbol == "B":
-			return 0
-
-
+		if symbol == "w": return 100
+		elif symbol == "m": return 50
+		elif symbol == "f": return 10
+		elif symbol == "g": return 5
+		elif symbol == "r": return 1
+		elif symbol == "B" or symbol == "A" or symbol =="." or symbol == "#": return 1
 
 	def printBoardGraphics(self, path):
 		img = Image.new("RGB", (70*self.x, 70*self.y), "white")			#draw background image with 70*x by 70*y resolution
@@ -156,8 +135,6 @@ class Board:
 					c = (107,97,255)
 					idraw.rectangle([(y*70+20,x*70+20),(y*70+50,x*70+50)], fill=c, outline=(0,0,0))
 		img.save("pictures/board-2-4.png")										#save board	
-
-
 
 def main(): 
 	#make board, run aStar and save graphics
