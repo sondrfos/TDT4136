@@ -47,7 +47,6 @@ class ReflexAgent(Agent):
         bestIndices = [index for index in range(len(scores)) if scores[index] == bestScore]
         chosenIndex = random.choice(bestIndices) # Pick randomly among the best
 
-        "Add more of your code here if you want to"
 
         return legalMoves[chosenIndex]
 
@@ -172,24 +171,51 @@ class MinimaxAgent(MultiAgentSearchAgent):
             Returns the total number of agents in the game
         """
         depth = 0
-        moves = gameState.getLegalActions(self.index)
+        
+        moves = gameState.getLegalActions(0)
+        maxChildValue = -float("inf")
         for move in moves:
-            childrenValue
+            childValue = self.minValue(gameState.generateSuccessor(0, move), depth, 1)
+            if maxChildValue < childValue:
+                maxChildValue = childValue
+                action = move
 
-
-
+        return action
 
         util.raiseNotDefined()
 
 
     def maxValue(self, gameState, depth):
-        moves = gameState.getLegalActions(self.index)
-        if self.depth = depth or gameState.isWin() or not moves:
+        moves = gameState.getLegalActions(0)
+        if self.depth == depth or gameState.isWin() or not moves:
             return self.evaluationFunction(gameState)
-        v = -float("inf")
+        i = 0
+        childValue = [0 for j in xrange(len(moves))]
         for move in moves:
-            childrenValue = minValue(move, depth)
-            if childrenValue > v:
+            childValue[i] = self.minValue(gameState.generateSuccessor(0, move), depth, 1)
+            i += 1
+        return max(childValue)
+
+
+
+    def minValue(self, gameState, depth, enemyIndex):
+        moves = gameState.getLegalActions(enemyIndex)
+        if gameState.isLose() or not moves:
+            return self.evaluationFunction(gameState)
+        i = 0
+        childValue = [0 for j in xrange(len(moves))]
+        if (enemyIndex == gameState.getNumAgents()-1):
+            for move in moves:
+                childValue[i] = self.maxValue(gameState.generateSuccessor(enemyIndex, move), depth+1)
+                i+=1
+        else:
+            for move in moves:
+                childValue[i] = self.minValue(gameState.generateSuccessor(enemyIndex, move), depth, enemyIndex+1)
+                i+=1
+        return min(childValue)
+
+            
+
 
 
 class AlphaBetaAgent(MultiAgentSearchAgent):
@@ -201,8 +227,64 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
         """
           Returns the minimax action using self.depth and self.evaluationFunction
         """
-        "*** YOUR CODE HERE ***"
+        depth = 0
+        
+        moves = gameState.getLegalActions(0)
+        alpha = -float("inf")
+        v = -float("inf")
+        beta = float("inf")
+        action = 0
+        for move in moves:
+            v = max(v, self.minValue(gameState.generateSuccessor(0, move), depth, 1, alpha, beta))
+            
+            if v > beta:
+            	return move
+            else:
+            	if alpha < v:
+            		alpha = v
+            		action = move
+
+        return action
+
         util.raiseNotDefined()
+
+
+    def maxValue(self, gameState, depth, alpha, beta):
+        moves = gameState.getLegalActions(0)
+        if self.depth == depth or gameState.isWin() or not moves:
+            return self.evaluationFunction(gameState)
+        v = -float("inf")
+
+        for move in moves:
+            v = max(v, self.minValue(gameState.generateSuccessor(0, move), depth, 1, alpha, beta))
+            if v > beta:
+            	return v
+
+            alpha = max(v, alpha)
+
+        return v
+
+
+
+    def minValue(self, gameState, depth, enemyIndex, alpha, beta):
+        moves = gameState.getLegalActions(enemyIndex)
+        if gameState.isLose() or not moves:
+            return self.evaluationFunction(gameState)
+        v = float("inf")
+
+        if (enemyIndex == gameState.getNumAgents()-1):
+            for move in moves:
+                v = min(v,self.maxValue(gameState.generateSuccessor(enemyIndex, move), depth+1, alpha, beta))
+                if alpha > v:
+                	return v
+                beta = min(v, beta)
+        else:
+            for move in moves:
+                v = min(v,self.minValue(gameState.generateSuccessor(enemyIndex, move), depth, enemyIndex+1, alpha, beta))
+                if alpha > v:
+                	return v
+                beta = min(v, beta)
+        return v
 
 class ExpectimaxAgent(MultiAgentSearchAgent):
     """
