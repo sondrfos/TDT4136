@@ -234,8 +234,8 @@ def create_sudoku_csp(filename):
             for row in range(box_row * 3, (box_row + 1) * 3):
                 for col in range(box_col * 3, (box_col + 1) * 3):
                     cells.append('%d-%d' % (row, col))
-            csp.add_all_different_constraint(cells)
-
+    # testing github desktop
+    int i = 0;
     return csp
 
 def print_sudoku_solution(solution):
