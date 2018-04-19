@@ -1,0 +1,15 @@
+; Thu Nov 16 12:23:08 CET 2017
+; 
+;+ (version "3.5")
+;+ (build "Build 663")
+
+([Protege_Class8] of  Editor
+
+	(name "Chief Honcho")
+	(responsible_for [Protege_Class9])
+	(salary 150000.0))
+
+([Protege_Class9] of  Editor
+
+	(name "Mr. Science")
+	(salary 60000.0))

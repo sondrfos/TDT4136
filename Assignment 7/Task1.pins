@@ -1,0 +1,72 @@
+; Thu Nov 16 16:41:34 CET 2017
+; 
+;+ (version "3.5")
+;+ (build "Build 663")
+
+([Task1_Class15] of  Fish
+
+	(dangerous TRUE)
+	(eggs FALSE)
+	(fly FALSE)
+	(gills TRUE)
+	(is_food FALSE)
+	(name "Shark")
+	(skin TRUE)
+	(swim TRUE)
+	(tall FALSE)
+	(walk FALSE))
+
+([Task1_Class17] of  Fish
+
+	(dangerous FALSE)
+	(eggs TRUE)
+	(fly FALSE)
+	(gills TRUE)
+	(is_food TRUE)
+	(name "Salmon")
+	(skin TRUE)
+	(swim TRUE)
+	(tall FALSE)
+	(walk FALSE))
+
+([Task1_Class18] of  Bird
+
+	(colour "Yellow")
+	(eggs TRUE)
+	(fly TRUE)
+	(is_food FALSE)
+	(name "Canary")
+	(skin TRUE)
+	(swim FALSE)
+	(tall FALSE)
+	(walk FALSE)
+	(wings TRUE))
+
+([Task1_Class19] of  Bird
+
+	(eggs TRUE)
+	(fly TRUE)
+	(is_food FALSE)
+	(name "Ostrich")
+	(skin TRUE)
+	(swim FALSE)
+	(tall TRUE)
+	(walk TRUE)
+	(wings TRUE))
+
+([Task1_Class20] of  Mammal
+
+	(eggs FALSE)
+	(fly FALSE)
+	(gives_milk TRUE)
+	(is_food TRUE)
+	(name "Cow")
+	(skin TRUE)
+	(swim FALSE)
+	(tall FALSE)
+	(walk TRUE))
+
+([Task1_Class30] of  Republican Quaker
+
+	(Pacifist FALSE)
+	(Pacifist FALSE))

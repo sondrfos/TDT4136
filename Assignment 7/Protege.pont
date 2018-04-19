@@ -1,0 +1,55 @@
+; Thu Nov 16 12:23:08 CET 2017
+; 
+;+ (version "3.5")
+;+ (build "Build 663")
+
+
+(defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
+	(is-a USER)
+	(role abstract)
+	(single-slot salary
+		(type FLOAT)
+		(range 0.0 %3FVARIABLE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot name_
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot responsible_for
+		(type INSTANCE)
+;+		(allowed-classes Employee)
+		(create-accessor read-write)))
+
+(defclass Author
+	(is-a USER)
+	(role abstract)
+	(single-slot name_
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
+(defclass News_Service
+	(is-a Author)
+	(role concrete))
+
+(defclass Employee
+	(is-a USER)
+	(role concrete)
+	(single-slot salary
+		(type FLOAT)
+		(range 0.0 %3FVARIABLE)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
+(defclass Columnist
+	(is-a Author Employee)
+	(role concrete))
+
+(defclass Editor
+	(is-a Author Employee)
+	(role concrete)
+	(multislot responsible_for
+		(type INSTANCE)
+;+		(allowed-classes Employee)
+		(create-accessor read-write)))
